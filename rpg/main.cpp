@@ -1,14 +1,11 @@
-//
-//  main.cpp
-//  rpg
-//
-//  Created by Olivia Chen on 2/15/25.
-//
-
 #include <iostream>
+#include "Character.h"
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+using namespace std;
+
+int main(){
+	Character c("Princess Peach", "Human");
+	cout << c;
+	c.usePoints("STH", 5);
+	cout << c;
 }
