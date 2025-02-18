@@ -87,10 +87,15 @@ protected:
 	//hidden setters, not directly accessible by user
 	void setSTAT(string stat, int num);
 	//must update stats after changes --> mult secondary stats
-	void updateSTATS();
+	void updateSTATS(string primary);
 	void setSKILL(string skill);
 	void setINVENTORY(string inventory, int num);
+
+	bool foundSKILL(string skill);
+	bool foundINVENTORY(string inventory);
+	bool foundSTAT(string stat);
 };
+
 
 
 #endif /* CHARACTER_H_ */

@@ -175,13 +175,58 @@ using namespace std;
 
 	}
 	//setters not to be directly used by user
-	void Character::setSTAT(string stat, int num){STATS[stat] += num;}
-	void Character::updateSTATS(){
-
+	void Character::setSTAT(string stat, int num){
+		STATS[stat] += num;
+		if(stat=="STR"||stat=="CONS"||stat=="DEX"||stat=="CHA"){
+			updateSTATS(stat);
+		}
 	}
+	//updates secondary stats after primaries changed
+	//to be used in setSTAT method
+	void Character::updateSTATS(string primary){
+		if (primary == "STR") {
+            STATS["MP"] += STATS["MP"] * STATS[primary];  
+            STATS["AP"] += STATS["AP"] * STATS[primary]; 
+        }
+        else if (primary == "DEX") {
+            STATS["SPD"] += STATS["DEX"] * STATS[primary];
+            STATS["STH"] += STATS["DEX"] * STATS[primary];
+            STATS["DEF"] += STATS["DEX"] * STATS[primary];
+        }
+        else if (primary == "CONS") {
+            STATS["HP"] += STATS["CONS"] * STATS[primary];
+            STATS["STA"] += STATS["CONS"] * STATS[primary];
+        }
+        else if (primary == "CHA") {
+            STATS["AFF"] += STATS["CHA"] * STATS[primary];
+            STATS["DCP"] += STATS["CHA"] * STATS[primary];
+        }
+
+        cout << "Updated secondary stats based on " << primary << "!" << endl;
+	}
+	
 	void Character::setSKILL(string skill){SKILLS.push_back(skill);}
 	void Character::setINVENTORY(string inventory, int num){INVENTORY[inventory] = num;}
 
+	bool Character:: foundSKILL(string skill){
+		
+	}
+	bool Character:: foundINVENTORY(string inventory){
+		if(INVENTORY.find(inventory)==INVENTORY.end()){
+			cout << "Item not found." << endl;
+			return false;
+		}
+		else
+			return true;
+	}
+	bool Character:: foundSTAT(string stat){
+		if(STATS.find(stat)==STATS.end()){
+			cout << "Stat not found." << endl;
+			return false;
+		}
+		else
+			return true;
+	}
 	ostream& operator <<(ostream& out, Character c){
 		c.displayPROFILE(out);
 		out << endl;
